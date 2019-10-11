@@ -20,7 +20,7 @@
 	</div>
 		<div class="container">
 		<form id="formu" method="post">
-			<input type="hidden" name="idPersona" id="idPersona">
+			
 		<div class="row d-flex">
 			
 				<div class="col-6">
@@ -43,7 +43,7 @@
 			<div class="col">
 				<div class="alert alert-success alert-dismissible fade show" role="alert" id="aviso">
 				  	usuario creado con exito
-				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				  	<button type="button" class="close " data-dismiss="alert" aria-label="Close">
 				    	<span aria-hidden="true">&times;</span>
 				 	 </button>
 				</div>
@@ -61,7 +61,7 @@
 							<th>acciones</th>
 						</tr>
 					</thead>
-					<tbody id="cuerpo">
+					<tbody id="cuerpoT">
 						
 					</tbody>
 				</table>

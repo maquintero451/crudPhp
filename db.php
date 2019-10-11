@@ -9,6 +9,7 @@
 			{
 				parent::__construct("mysql:host=localhost;dbname=phpcrud","root","");
 				parent::exec("set name utf8");
+				
 			}
 			catch(PDOException $e)
 			{

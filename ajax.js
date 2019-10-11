@@ -1,3 +1,22 @@
+	
+	function eliminarP(id) 
+	{
+		$.ajax({
+			url: 'create.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {"idP":id,"accion":"eliminar"}
+		})
+		.done(function(respuesta) {
+			
+			console.log(respuesta);
+		})
+		.fail(function() {
+			console.log("error");
+		})
+	
+		 jQuery.consultar();
+	}
 $(document).ready(function() {
 	
 	$('#aviso').hide();
@@ -9,41 +28,49 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'create.php',
 			type: 'POST',
-			dataType: 'json',
-			data: datos('GUARDAR')
+			dataType: 'JSON',
+			data: $('#formu').serialize()+"&accion=añadir"
 		}).done(function(response)
 		{
-			if (response=="ok") 
-			{
-				alert("datos guardados")
-					$('#aviso').show()
+			consultar();
+			console.log(response);
+		}).fail(function() {
+			console.log("error");
+		})
+		$('#aviso').show();
+		$('#nombre').val("");
+		$('#apellido').val("");
+	})
+
+
+	function consultar()
+	{
+		$.ajax({
+			url: 'create.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data:{"accion":"consultar"}
+		})
+		.done(function(respuesta) {
+			var x="";
+			console.log(respuesta);
+			for (var item in respuesta) {
+				var tabla=document.getElementById('cuerpoT');
+				
+				x +=("<tr><td name='idP' >"+respuesta[item].idPersonas+"</td><td>"+respuesta[item].nombre+"</td><td>"+respuesta[item].apellido+"</td><td><input type='button' class='btn bg-primary mr-2'  value='Modificar'><input type='button' name='btnEliminar' onclick='eliminarP("+respuesta[item].idPersonas+");' class='btn bg-danger eliminar'  value='Eliminar'></td></tr>")
+				tabla.innerHTML=x
 			}
-			else
-			{
-				alert(response)
-			}
+			
+		
+		})
+		.fail(function() {
+			console.log("error");
 		})
 		
-	
-		tabla()
-
-	})
-	function tabla(){
-		var tabla= $.ajax({
-		url: 'consulta.php',
 		
-		dataType:'text',
-		async:false
-		}).responseText;
-		$('#cuerpo').html(tabla)
+		
 	}
-	tabla()
-	function datos(accion)
-	{
-		return{
-			"idPersona":document.getElementById('idPersona').value,
-			"nombre":document.getElementById('nombre').value,
-			"apellido":document.getElementById('apellido').value,
-		}
-	}
+	consultar()
+
+
 })
